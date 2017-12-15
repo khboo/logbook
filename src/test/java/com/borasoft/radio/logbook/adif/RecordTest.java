@@ -1,7 +1,6 @@
 package com.borasoft.radio.logbook.adif;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.json.JSONException;
