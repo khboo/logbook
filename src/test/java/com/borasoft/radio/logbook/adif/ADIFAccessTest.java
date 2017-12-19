@@ -12,7 +12,7 @@ import org.junit.Test;
 public class ADIFAccessTest {
 	@Test
 	public void testADIFRead() throws URISyntaxException, IOException {
-		FileInputStream stream = new FileInputStream(new java.io.File(this.getClass().getClassLoader().getResource("./ve3he_2017-12-09.ADI").toURI()));
+		FileInputStream stream = new FileInputStream(new java.io.File(getClass().getClassLoader().getResource("ve3he_2017-12-09.ADI").toURI()));
 		InputStreamReader reader = new InputStreamReader(stream);
 		ADIFReader adifReader = new ADIFReader(reader);
 		File adif= adifReader.readADIF_File();
