@@ -3,7 +3,7 @@ package com.borasoft.radio.logbook.adif;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-class Record {
+public class Record {
 	/* mandatory */
 	String call;
 	String qso_date;
@@ -12,15 +12,15 @@ class Record {
 	String mode;
 	
 	/* optional */
-	String freq;
-	String name;
-	String rst_rcvd;
-	String rst_sent;
+	public String freq;
+	public String name;
+	public String rst_rcvd;
+	public String rst_sent;
 	String qsl_rcvd;
 	String qsl_sent;
-	String time_off;
-	String comment;
-	String qth;
+	public String time_off;
+	public String comment;
+	public String qth;
 	String tx_pwr;
 	String ituz; // ITU zone
 	String cqz; // CQ zone
@@ -29,14 +29,14 @@ class Record {
 	@SuppressWarnings("unused")
 	private Record() {
 	}
-	Record(String call,String qso_date,String time_on,String band,String mode) {
+	public Record(String call,String qso_date,String time_on,String band,String mode) {
 		this.call=call;
 		this.qso_date=qso_date;
 		this.time_on=time_on;
 		this.band=band;
 		this.mode=mode;
 	}
-	JSONObject toJSONObject() throws JSONException {
+	public JSONObject toJSONObject() throws JSONException {
 		JSONObject record= new JSONObject();
 		addIfNotNull(record,"call",call);
 		addIfNotNull(record,"qso_date",qso_date);
@@ -63,7 +63,7 @@ class Record {
 			record.put(field,value);
 		}
 	}
-	String toADIFString() {
+	public String toADIFString() {
 		StringBuilder record=new StringBuilder();
 		addIfNotNull(record,"call",call);
 		addIfNotNull(record,"qso_date",qso_date);
