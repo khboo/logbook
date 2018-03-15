@@ -4,10 +4,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 class Header {
-	String freetext; // header start. should not be starting with '<'. header ends with <eoh>.
-	String adif_ver;
-	String programid;
-	String programversion;
+	String freetext=""; // header start. should not be starting with '<'. header ends with <eoh>.
+	String adif_ver="1.0";
+	String programid="BORASOFT_LOGBOOK";
+	String programversion="1.0";
 	JSONObject toJSONObject() throws JSONException {
 		JSONObject record= new JSONObject();
 		addIfNotNull(record,"freetext",freetext);

@@ -4,9 +4,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Reference;
+@Entity
 public class File {
 	Header header;
-	List<Record> records;
+	@Reference List<Record> records;
 	public String toADIFString() {
 		StringBuilder builder=new StringBuilder();
 		if(header!=null) {
@@ -19,6 +25,21 @@ public class File {
 			builder.append(record.toADIFString()+"\n");
 		}
 		return builder.toString();
+	}
+	public JSONObject toJSONObject() throws JSONException {
+		JSONObject file=new JSONObject();
+		if(header!=null) {
+			file.put("header",header.toJSONObject());
+		}
+		Iterator<Record> iter=records.iterator();
+		Record record=null;
+		JSONArray jrecords=new JSONArray();
+		while(iter.hasNext()) {
+			record=iter.next();
+			jrecords.put(record.toJSONObject());
+		}	
+		file.put("records", jrecords);
+		return file;
 	}
 	public void addRecord(Record record) {
 		if(records==null) {

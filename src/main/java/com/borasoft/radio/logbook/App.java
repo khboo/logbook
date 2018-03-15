@@ -1,36 +1,36 @@
 package com.borasoft.radio.logbook;
 
 import java.io.IOException;
+
+import org.bson.Document;
+import org.json.JSONException;
+
 import com.borasoft.radio.logbook.adif.Record;
+import com.borasoft.radio.logbook.adif.File;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
 import asg.cliche.Command;
 import asg.cliche.ShellFactory;
 
 public class App {
+	File file=new File();
     public static void main( String[] args ) throws IOException {
     	// Type 'exit' to terminate the shell.
+        final MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://localhost"));
+        final MongoDatabase blogDatabase = mongoClient.getDatabase("blog");
+        final MongoCollection<Document> usersCollection;
+        usersCollection = blogDatabase.getCollection("users");
         ShellFactory.createConsoleShell("","",new App()).commandLoop();
+        mongoClient.close();
         System.out.println("Bye.");
     }
     
     @Command(description="Add a new QSO.",name="add")
-    public boolean add() throws IOException {
-    	/*
-    	String call;
-    	String qso_date;
-    	String time_on;
-    	String band;
-    	String mode;
-    	
-    	String freq;
-    	String name;
-    	String rst_rcvd;
-    	String rst_sent;
-    	String qsl_rcvd;
-    	String qsl_sent;
-    	String time_off;
-    	String comment;
-    	String qth;
-    	*/
+    public boolean add() throws IOException, JSONException {
+    	/* mandatory fields */
     	String call;
     	String qso_date;
     	String time_on;
@@ -46,7 +46,7 @@ public class App {
     	}
     	call=sb.toString();
    	
-    	System.out.print("QSO DATE(YYYYMMDD): ");
+    	System.out.print("QSO DATE - UTC(YYYYMMDD): ");
     	b=new byte[9];
     	System.in.read(b);
     	sb=new StringBuilder();
@@ -55,7 +55,7 @@ public class App {
     	}
     	qso_date=sb.toString();
 
-    	System.out.print("TIME ON(HHMM): ");
+    	System.out.print("TIME ON - UTC(HHMM): ");
     	b=new byte[5];
     	System.in.read(b);
     	sb=new StringBuilder();
@@ -167,7 +167,10 @@ public class App {
     	}
     	record.time_off=sb.toString();
     	
-    	System.out.println(record.toADIFString());   	
+    	//System.out.println(record.toADIFString());   
+    	System.out.println(record.toJSONObject().toString());
+    	file.addRecord(record);
+    	System.out.println(record.toADIFString());
     	return true;
     }    
 }
