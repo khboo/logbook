@@ -2,7 +2,8 @@ package com.borasoft.radio.logbook.adif;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import org.mongodb.morphia.annotations.Entity;
+@Entity
 public class Record {
 	/* mandatory */
 	String call;

@@ -7,12 +7,10 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Reference;
-@Entity
+
 public class File {
 	Header header;
-	@Reference List<Record> records;
+	List<Record> records;
 	public String toADIFString() {
 		StringBuilder builder=new StringBuilder();
 		if(header!=null) {
