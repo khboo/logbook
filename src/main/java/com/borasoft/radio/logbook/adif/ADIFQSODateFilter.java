@@ -19,7 +19,7 @@ public class ADIFQSODateFilter {
 	 * arg[2] - Starting QSO date (yyyymmdd)
 	 * arg[3] - Ending QSO date (yyyymmdd)
 	 */
-	public static void main(String[] args) throws FileNotFoundException, IOException {
+	public static void main(String[] args) throws IOException {
 		System.out.println("\nADIF QSO date filter, 2011, BoraSoft(c)\n");
 
 		if (args.length != 4) {
@@ -42,7 +42,7 @@ public class ADIFQSODateFilter {
 	}
 	
 	public void processADIF(String inputFilename, String outputFilename, String startingDate, String endingDate) 
-			throws FileNotFoundException, IOException {
+			throws IOException {
 		FileInputStream stream = new FileInputStream(inputFilename);
 		InputStreamReader reader = new InputStreamReader(stream);
 		ADIFReader adifReader = new ADIFReader(reader);
@@ -80,7 +80,7 @@ public class ADIFQSODateFilter {
 				prevRecord = record;
 			}
 			ADIFWriter adifWriter = new ADIFWriter(writer,newADIF);
-			adifWriter.writeADIF_File();;
+			adifWriter.writeADIF_File();
 			writer.close();	
 		}
 		
@@ -105,9 +105,9 @@ public class ADIFQSODateFilter {
 		   && prev.qso_date.equalsIgnoreCase(current.qso_date)
 		   && prev.time_on.equalsIgnoreCase(current.time_on)) {
 			return true;
-		} else {
-			return false;
-		}
+		} 
+		return false;
+		
 	}
 
 }
