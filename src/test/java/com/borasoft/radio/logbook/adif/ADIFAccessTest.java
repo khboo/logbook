@@ -19,9 +19,9 @@ public class ADIFAccessTest {
 		ADIFReader adifReader = new ADIFReader(reader);
 		File adif= adifReader.readADIF_File();
 		reader.close();
-		assertEquals(adif.header.freetext.trim(),"header <adif_ver:4>1.00 From VE6YP log programme.");
-		assertEquals(adif.header.adif_ver,"1.00");
-		assertEquals(adif.records.size(),9);
+		assertEquals("header <adif_ver:4>1.00 From VE6YP log programme.", adif.header.freetext.trim());
+		assertEquals("1.00", adif.header.adif_ver);
+		assertEquals(9, adif.records.size());
 		
 		FileOutputStream ostream = new FileOutputStream(new java.io.File("ve3he_2017-12-09_copy.adi"));
 		OutputStreamWriter writer = new OutputStreamWriter(ostream);

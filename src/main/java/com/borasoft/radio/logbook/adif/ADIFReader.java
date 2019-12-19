@@ -128,7 +128,7 @@ public class ADIFReader {
 	private void parseFile(String s, int start, ADIFHeader obj) {
 		int end;
 		String filename;
-		end = s.indexOf("<",start);
+		end = s.indexOf('<',start);
 		filename = s.substring(start, end).trim();	
 		obj.setFile(filename);
 	}
@@ -309,11 +309,11 @@ public class ADIFReader {
 	private String parseStringValue(String s, int start) {
 		int size;
 		int end;
-		end = s.indexOf(">",start);
+		end = s.indexOf('>',start);
 		
 		// Handle the additional data type field - e.g. ":D" in <QSO_DATE:8:D> 
 		String temp = s.substring(start-1, end);
-		if(temp.indexOf(":")!=temp.lastIndexOf(":")) {
+		if(temp.indexOf(':')!=temp.lastIndexOf(':')) {
 			size = Integer.parseInt(s.substring(start, end-2)); // We could process ":D" later if necessary.
 		} else {
 			size = Integer.parseInt(s.substring(start, end));
